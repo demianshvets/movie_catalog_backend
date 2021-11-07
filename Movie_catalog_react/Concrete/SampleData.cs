@@ -10,6 +10,13 @@ namespace Movie_catalog_react.Concrete
     {
         public static void Initialize(AppDbContext context)
         {
+            if(!context.Resources.Any())
+            {
+                context.Resources.Add(new Resource
+                {
+                    DataPath="Photos/defalt.jpg"
+                });
+            }
             if (!context.Users.Any())
             {
                 context.Users.AddRange(
@@ -37,7 +44,13 @@ namespace Movie_catalog_react.Concrete
                         Name = "Comedy",
                     }, new Genre
                     {
-                        Name = "Historical",
+                        Name = "Historical"
+                    }, new Genre
+                    {
+                        Name = "Crime"
+                    }, new Genre
+                    {
+                        Name = "Action"
                     }
                 );
                 context.SaveChanges();
@@ -48,12 +61,27 @@ namespace Movie_catalog_react.Concrete
                     new Company
                     {
                         Name = "HBO"
-                    },
-                    new Company
-                    {
-                        Name = "Colambia Pictures"
-                    }
-                );
+                    },                  
+                     new Company
+                     {
+                         Name = "Paramount Pictures"
+                     },
+                     new Company
+                     {
+                         Name = "Universal Pictures"
+                     },
+                     new Company
+                     {
+                         Name = "The Weinstein Company"
+                     },
+                      new Company
+                      {
+                          Name = "Colambia Pictures"
+                      }
+
+
+
+                ); 
                 context.SaveChanges();
             }
             if (!context.Movies.Any())
@@ -61,33 +89,54 @@ namespace Movie_catalog_react.Concrete
                 context.Movies.AddRange(
                     new Movie
                     {
-                        Name = "Chernobyl",
-                        Company = context.Companies.FirstOrDefault(x => x.Name == "HBO"),
-                        // Company = context.Companies.Where(x => x.Name == "HBO").FirstOrDefault();
-                        Duration = new TimeSpan(1, 8, 25),
-                        ReleaseTime = new DateTime(2019, 5, 6),
-                        Genre = new List<Genre>() { context.Genres.FirstOrDefault(x => x.Name == "Drama"), context.Genres.FirstOrDefault(x => x.Name == "Historical") },
-                        Description = "In April 1986, a huge explosion erupted at the Chernobyl nuclear power station in northern Ukraine. This series follows the stories of the men and women, who tried to contain the disaster, as well as those who gave their lives preventing a subsequent and worse one."
+                        Name = "The God Father",
+                        Company = context.Companies.FirstOrDefault(x => x.Name == "Paramount Pictures"),
+                        Duration = new TimeSpan(2, 57, 00),
+                        ReleaseTime = new DateTime(1972, 3, 14),
+                        Photo = new Resource { Format = ResourceFormat.JPEG, DataPath = "Photos/god_father.jpg" },
+                        Genre = new List<Genre>() { context.Genres.FirstOrDefault(x => x.Name == "Crime") },
+                        Description = "The aging patriarch of an organized crime dynasty in postwar New York City transfers control of his clandestine empire to his reluctant youngest son."
                     },
                     new Movie
                     {
-                        Name = "Titanic",
-                        Company = context.Companies.FirstOrDefault(x => x.Name == "Colambia Pictures"),
-                        // Company = context.Companies.Where(x => x.Name == "HBO").FirstOrDefault();
-                        Duration = new TimeSpan(1, 50, 25),
-                        ReleaseTime = new DateTime(1997, 5, 6),
-                        Genre = new List<Genre>() { context.Genres.FirstOrDefault(x => x.Name == "Drama"), context.Genres.FirstOrDefault(x => x.Name == "Historical") },
-                        Description = "In April 1986, a huge explosion erupted at the Chernobyl nuclear power station in northern Ukraine. This series follows the stories of the men and women, who tried to contain the disaster, as well as those who gave their lives preventing a subsequent and worse one."
+                        Name = "The Truman show",
+                        Company = context.Companies.FirstOrDefault(x => x.Name == "Paramount Pictures"),
+                        Duration = new TimeSpan(1, 43, 25),
+                        ReleaseTime = new DateTime(1998, 6, 1),
+                        Genre = new List<Genre>() { context.Genres.FirstOrDefault(x => x.Name == "Comedy") },
+                        Photo = new Resource { Format = ResourceFormat.JPEG, DataPath = "Photos/Show_truman.jpg" },
+                        Description = "An insurance salesman discovers his whole life is actually a reality TV show."
                     },
                     new Movie
                     {
-                        Name = "Getto",
-                        Company = context.Companies.FirstOrDefault(x => x.Name == "Colambia Pictures"),
-                        // Company = context.Companies.Where(x => x.Name == "HBO").FirstOrDefault();
-                        Duration = new TimeSpan(2, 0, 25),
-                        ReleaseTime = new DateTime(2005, 5, 6),
+                        Name = "Wolf of Wall-Street",
+                        Company = context.Companies.FirstOrDefault(x => x.Name == "Universal Pictures"),
+                        Duration = new TimeSpan(3, 0, 24),
+                        ReleaseTime = new DateTime(2013, 12, 25),
+                        Genre = new List<Genre>() { context.Genres.FirstOrDefault(x => x.Name == "Comedy") },
+                        Photo = new Resource { Format = ResourceFormat.JPEG, DataPath = "Photos/wolf_wall_street.jpg" },
+                        Description = "American comedy based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government."
+                    }
+                    ,
+                    new Movie
+                    {
+                        Name = "The imitation game",
+                        Company = context.Companies.FirstOrDefault(x => x.Name == "The Weinstein Company"),
+                        Duration = new TimeSpan(1, 54, 15),
+                        ReleaseTime = new DateTime(2014, 8, 29),
                         Genre = new List<Genre>() { context.Genres.FirstOrDefault(x => x.Name == "Drama") },
-                        Description = "In April 1986, a huge explosion erupted at the Chernobyl nuclear power station in northern Ukraine. This series follows the stories of the men and women, who tried to contain the disaster, as well as those who gave their lives preventing a subsequent and worse one."
+                        Photo = new Resource { Format = ResourceFormat.JPEG, DataPath = "Photos/the_immitation_game.jpg" },
+                        Description = "During World War II, the English mathematical genius Alan Turing tries to crack the German Enigma code with help from fellow mathematicians while attempting to come to terms with his troubled private life."
+                    },
+                    new Movie
+                    {
+                        Name = "The Island",
+                        Company = context.Companies.FirstOrDefault(x => x.Name == "Universal Pictures"),
+                        Duration = new TimeSpan(2, 16, 03),
+                        ReleaseTime = new DateTime(2005, 8, 22),
+                        Genre = new List<Genre>() { context.Genres.FirstOrDefault(x => x.Name == "Action") },
+                        Photo = new Resource { Format = ResourceFormat.JPEG, DataPath = "Photos/the island.jpg" },
+                        Description = "A man living in a futuristic sterile colony begins to question his circumscribed existence when his friend is chosen to go to the Island, the last uncontaminated place on earth."
                     }
                 /* new Movie
                  {

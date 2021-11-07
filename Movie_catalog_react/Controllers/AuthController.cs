@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movie_catalog_react.Abstract;
 using Movie_catalog_react.Concrete;
+using Movie_catalog_react.Entities;
 using Movie_catalog_react.Helpers;
 using Movie_catalog_react.Models;
 using System;
@@ -27,6 +28,17 @@ namespace Movie_catalog_react.Controllers
             _userRepository = repository;
             _jwtService = jwtService;
         }
+        [HttpPost("register")]
+        public IActionResult Register(RegisterModel model)
+        {
+            var user = new User()
+            { 
+                Email=model.Email,
+                Password=BCrypt.Net.BCrypt.HashPassword(model.Password)
+            };
+            return Created("success", _userRepository.Create(user));
+        }
+
 
         [HttpPost("Login")]
         public IActionResult Login(LoginModel model)
@@ -63,6 +75,7 @@ namespace Movie_catalog_react.Controllers
                 return Unauthorized();
             }
         }
+
         [HttpGet("user1")]
         public async Task<IActionResult> GetUser()
         {
@@ -100,7 +113,7 @@ namespace Movie_catalog_react.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
         [HttpGet("logout2")]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout2()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok(new {

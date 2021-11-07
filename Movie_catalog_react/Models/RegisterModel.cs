@@ -8,15 +8,15 @@ namespace Movie_catalog_react.Models
 {
     public class RegisterModel
     {
-        [Required(ErrorMessage = "Input Email")]
+      //  [Required(ErrorMessage = "Input Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Input password")]
-        [DataType(DataType.Password)]
+      //  [Required(ErrorMessage = "Input password")]
+      //  [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
+        /*[DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Passeord is incorrect")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }*/
     }
 }

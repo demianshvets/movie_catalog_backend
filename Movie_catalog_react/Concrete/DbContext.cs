@@ -20,7 +20,7 @@ namespace Movie_catalog_react.Concrete
         public AppDbContext(DbContextOptions<AppDbContext> options)
                : base(options)
         {
-            // Database.EnsureDeleted();
+           //  Database.EnsureDeleted();
             Database.EnsureCreated();
         }
     }

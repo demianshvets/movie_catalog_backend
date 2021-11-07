@@ -60,7 +60,7 @@ namespace Movie_catalog_react.Concrete
             foreach (Movie m in inputMovies)
             {
                 genres = "";
-                string photoPath = "Photos/chill1.jpg";
+                string photoPath = "Photos/defalt.jpg";
                 foreach (Genre genre in m.Genre)
                 {
                     genres += genre.Name + ", ";
@@ -69,7 +69,7 @@ namespace Movie_catalog_react.Concrete
                     genres = genres.Substring(0, genres.Length - 2);
                 if(m.Photo!=null)
                 {
-                    photoPath = "Photos/"+m.Photo.DataPath;
+                    photoPath = m.Photo.DataPath;
                 }
                 outputMovies.Add(new MovieModel { Id = m.MovieId.ToString(), Name = m.Name, Company = m.Company.Name, Genres = genres, ReleaseDate = m.ReleaseTime.Date.ToString("yyyy/MM/dd"), Duration = m.Duration.ToString(), Description = m.Description, PhotoPath= photoPath });
             }

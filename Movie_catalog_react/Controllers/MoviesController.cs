@@ -71,7 +71,7 @@ namespace Movie_catalog_react.Controllers
         }
 
 
-        //[Authorize]
+       
         [HttpGet]
             public OutDataModel Get()
             {
@@ -119,7 +119,7 @@ namespace Movie_catalog_react.Controllers
                     postedFile.CopyTo(stream);
                 }
 
-                Resource r = new Resource { DataPath = filename, Format = ResourceFormat.JPEG };
+                Resource r = new Resource { DataPath = "Photos/"+filename, Format = ResourceFormat.JPEG };
                 _context.Resources.Add(r);               
                 _context.SaveChanges();
                 int PhotoId = r.ResourceId;
