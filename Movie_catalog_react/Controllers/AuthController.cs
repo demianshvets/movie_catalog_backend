@@ -55,7 +55,7 @@ namespace Movie_catalog_react.Controllers
             {
                 HttpOnly = true
             });
-            return Ok(new {message="success" });
+            return Ok(user);
         }
 
         [HttpGet("user")]
@@ -67,7 +67,7 @@ namespace Movie_catalog_react.Controllers
                 var token = _jwtService.Verify(jwt);
                 int userId = int.Parse(token.Issuer);
                 var user = _userRepository.GetById(userId);
-                await Authenticate(user.Email);
+               // await Authenticate(user.Email);
                 return Ok(user);
             }
             catch (Exception _)

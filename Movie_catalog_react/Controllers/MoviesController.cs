@@ -113,22 +113,27 @@ namespace Movie_catalog_react.Controllers
                 var postedFile = httpRequest.Files[0];
                 string filename = postedFile.FileName;
                 var physicalPath = _env.ContentRootPath + "/Photos/" + filename;
-
-                using (FileStream stream = new FileStream(physicalPath, FileMode.OpenOrCreate))
+                var splitFileName = filename.Split('.');
+               
+                if(Enum.IsDefined(typeof(ResourceFormat),splitFileName[1]))
                 {
-                    postedFile.CopyTo(stream);
+                    using (FileStream stream = new FileStream(physicalPath, FileMode.OpenOrCreate))
+                    {
+                        postedFile.CopyTo(stream);
+                    }
+
+                    Resource r = new Resource { DataPath = "Photos/" + filename, Format=Enum.Parse<ResourceFormat>( splitFileName[1]) };
+                    _context.Resources.Add(r);
+                    _context.SaveChanges();
+                    int PhotoId = r.ResourceId;
+                    return new JsonResult(PhotoId);
                 }
 
-                Resource r = new Resource { DataPath = "Photos/"+filename, Format = ResourceFormat.JPEG };
-                _context.Resources.Add(r);               
-                _context.SaveChanges();
-                int PhotoId = r.ResourceId;
-                return new JsonResult(PhotoId);
+                return new JsonResult(_context.Resources.FirstOrDefault(x => x.DataPath == "Photos/defalt.jpg").ResourceId);
             }
             catch (Exception)
             {
-
-                return new JsonResult("anonymous.png");
+                return new JsonResult(_context.Resources.FirstOrDefault(x => x.DataPath == "Photos/defalt.jpg").ResourceId);
             }
         }
     }

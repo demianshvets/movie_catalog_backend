@@ -22,10 +22,17 @@ namespace Movie_catalog_react.Entities
     public enum ResourceFormat
     {
         PNG,
+        png,
+        jpg,
+        JPG,
         JPEG,
+        jpeg,
         GIF,
+        gif,
         BMP,
-        TIFF
+        bmp,
+        TIFF,
+        tiff
     }
 }
 

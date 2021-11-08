@@ -81,15 +81,17 @@ namespace Movie_catalog_react.Concrete
         {
             if(movie.Name!=null)
             {
+                TimeSpan timeDuration = TimeSpan.TryParse(movie.Duration, out timeDuration) ? timeDuration : new TimeSpan(0,0,0);
+                DateTime releaseDate = DateTime.TryParse(movie.ReleaseDate, out releaseDate) ? releaseDate : new DateTime(2000,1,1);
                // Resource ph = _context.Resources.FirstOrDefault(x => x.ResourceId == movie.PhotoId);
                 Movie m = new Movie
                 {
                     Name = movie.Name,
                     Company = _context.Companies.FirstOrDefault(x => x.CompId == int.Parse(movie.Company)),
                     Genre = new List<Genre>() { _context.Genres.FirstOrDefault(x => x.GenreId == int.Parse(movie.Genres)) },
-                    ReleaseTime = DateTime.Parse(movie.ReleaseDate),
+                    ReleaseTime = releaseDate,
                     Description = movie.Description,
-                    Duration = TimeSpan.Parse(movie.Duration),
+                    Duration = timeDuration,
                     Photo = _context.Resources.FirstOrDefault(x => x.ResourceId == movie.PhotoId)
 
                 };
